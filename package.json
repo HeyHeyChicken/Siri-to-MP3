@@ -68,14 +68,13 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/HeyHeyChicken/Siri-to-MP3.git"
   },
   "author": "Antoine Duval",
-  "license": "ISC",
+  "license": "SEE LICENSE IN LICENSE FILE",
   "bugs": {
     "url": "https://github.com/HeyHeyChicken/Siri-to-MP3/issues"
   },
