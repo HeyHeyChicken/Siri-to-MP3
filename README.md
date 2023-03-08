@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://github.com/HeyHeyChicken/Siri-to-MP3/blob/main/resources/logo.png" alt="Logo" width="300">
+<img src="https://github.com/HeyHeyChicken/Siri-to-MP3/blob/main/resources/logo.png" alt="Logo" width="500">
 </div>
 <br>
 
