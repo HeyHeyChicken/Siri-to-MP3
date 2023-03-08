@@ -6,12 +6,12 @@
 ## 👋 Introduction
 
 **Siri to MP3** is an open-source program allowing you to use the voice of Siri in your projects.<br/>
-This is an API that you can contact, specifying the phrase to say, an MP3 file will be returned to you.
+This is an API that you can contact, specifying the sentence to say, an MP3 file will be returned to you. Just have to play it.
 
 ## 🔧 Prerequisites
 
-[<img src="https://raw.githubusercontent.com/HeyHeyChicken/Siri-to-MP3/master/resources/nodeJSLogo.png" width="18" /> Node.js](https://nodejs.org/)<br/>
-[<img src="https://raw.githubusercontent.com/HeyHeyChicken/Siri-to-MP3/master/resources/npmLogo.png" width="18" /> npm](https://npmjs.com/)<br/>
+[<img src="https://github.com/HeyHeyChicken/Siri-to-MP3/blob/main/resources/nodeJSLogo.png" width="18" /> Node.js](https://nodejs.org/)<br/>
+[<img src="https://github.com/HeyHeyChicken/Siri-to-MP3/blob/main/resources/npmLogo.png" width="18" /> npm](https://npmjs.com/)<br/>
 
 ## ⬇️ Installation
 
