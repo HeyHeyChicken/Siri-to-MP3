@@ -72,3 +72,5 @@ app.get('/api', function (req, res) {
 })
 
 app.listen(80)
+console.log("Siri to MP3 is ready");
+console.log("Please, ask an API request like http://localhost/api?sentence=Hello");
