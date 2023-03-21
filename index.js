@@ -36,6 +36,12 @@ app.get('/', function (req, res) {
 app.get('/api', function (req, res) {
     const ATTR = "sentence";
     const SENTENCE = req.query[ATTR];
+    const MP3_ATTR = "mp3";
+    let mp3 = req.query[MP3_ATTR];
+
+    if(!mp3){
+        mp3 = true;
+    }
     
     if(SENTENCE){
         const FILE_NAME = "/MacTTS-" + new Date().getTime();
@@ -45,32 +51,44 @@ app.get('/api', function (req, res) {
         LIBRARIES.NodeCMD.run(
             COMMAND,
             function(err, data, stderr){
-                // Convert AIFF file to MP3
-                const FFMPEG_ABSOLUTE_PATH = LIBRARIES.Path.resolve(__dirname + "/ffmpeg");
-                const CONVERT_COMMAND = FFMPEG_ABSOLUTE_PATH + " -i " + ABSOLUTE_PATH + ".aiff -f mp3 -acodec libmp3lame -ab 192000 -ar 44100 " + ABSOLUTE_PATH + ".mp3";
-                LIBRARIES.NodeCMD.run(
-                    CONVERT_COMMAND,
-                    function(err, data, stderr){
-                        // Delete the old AIFF file
-                        LIBRARIES.FS.unlink(ABSOLUTE_PATH + ".aiff", function(){
-                            const MP3_FILE_PATH = ABSOLUTE_PATH + ".mp3";
-                            res.sendFile(MP3_FILE_PATH);
-                            res.on('finish', function() {
-                                LIBRARIES.FS.unlink(MP3_FILE_PATH, (err) => {
-                                    if (err) throw err;
+                if(mp3 === 'true'){
+                    // Convert AIFF file to MP3
+                    const FFMPEG_ABSOLUTE_PATH = LIBRARIES.Path.resolve(__dirname + "/ffmpeg");
+                    const CONVERT_COMMAND = FFMPEG_ABSOLUTE_PATH + " -i " + ABSOLUTE_PATH + ".aiff -f mp3 -acodec libmp3lame -ab 192000 -ar 44100 " + ABSOLUTE_PATH + ".mp3";
+                    LIBRARIES.NodeCMD.run(
+                        CONVERT_COMMAND,
+                        function(err, data, stderr){
+                            // Delete the old AIFF file
+                            LIBRARIES.FS.unlink(ABSOLUTE_PATH + ".aiff", function(){
+                                const MP3_FILE_PATH = ABSOLUTE_PATH + ".mp3";
+                                res.sendFile(MP3_FILE_PATH);
+                                res.on('finish', function() {
+                                    LIBRARIES.FS.unlink(MP3_FILE_PATH, (err) => {
+                                        if (err) throw err;
+                                    });
                                 });
                             });
+                        }
+                    );
+                }
+                else{
+                    const AIFF_FILE_PATH = ABSOLUTE_PATH + ".aiff";
+                    res.sendFile(AIFF_FILE_PATH);
+                    res.on('finish', function() {
+                        LIBRARIES.FS.unlink(AIFF_FILE_PATH, (err) => {
+                            if (err) throw err;
                         });
-                    }
-                );
+                    });
+                }
             }
         );
     }
     else{
         res.send('You must enter your sentence in the "' + ATTR + '" parameter (Example: http://localhost/api?' + ATTR + '=Hello).')
+        res.send('You can also set the "' + MP3_ATTR + '" parameter to false to dl the .aiff file (Example: http://localhost/api?' + ATTR + '=Hello&' + MP3_ATTR + '=false).')
     }
 })
 
 app.listen(80)
 console.log("Siri to MP3 is ready");
-console.log("Please, ask an API request like http://localhost/api?sentence=Hello");
+console.log("Please, ask an API request like http://localhost/api?sentence=Hello&mp3=true");
